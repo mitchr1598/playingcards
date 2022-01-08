@@ -57,14 +57,14 @@ print(len(deck))  # Prints 52
 ```
 
 ### Customization
-####Custom Cards
+#### Custom Cards
 This module presents three class objects for creating custom cards: `Rank` and `Suit` for the building blocks, and `Card` for the construction.
 
 You can construct custom classes as follows
 
 ```python
 rank = Rank('J', num_value=11)  # Creates a Jack rank
-suit = Suit('s', pretty='♠')  # Creates a heart suit
+suit = Suit('s', pretty='♠')  # Creates a spade suit
 
 card = Card(rank, suit)  # Creates the Jack of Hearts
 ```

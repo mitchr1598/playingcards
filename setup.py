@@ -8,17 +8,17 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
 
 setup(
-    name="pokersolverquery.py",
-    version="1.0.1",
-    description="A Poker Solver Query package for interacting with UPI engines such as PioSOLVER and jesolver",
+    name="playingcards1598",
+    version="1.0.2",
+    description="An Advanced and Customisable Python Playing Card Module that makes creating playing card games and running simulations general, simple and easy!",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/mitchr1598/pokersolverquery",
+    url="https://github.com/mitchr1598/playingcards",
     author="mitchr1598",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
     ],
-    packages=["pokersolverquery"],
+    packages=["playingcards"],
     python_requires=">=3.9.0",
 )
