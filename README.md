@@ -11,18 +11,17 @@ An Advanced and Customisable Python Playing Card Module that makes creating play
 ## Installation
 >*Requires Python 3.9 and above*
 
-<!---
-You can install the module from [PyPI](https://pypi.org/project/playingcards.py/) or by using pip.
+
+You can install the module from [PyPI](https://pypi.org/project/playingcards1598/) or by using pip.
 
 ```sh
 # Linux/MacOS
-pip3 install playingcards.py
+pip3 install playingcards1598
 
 # Windows
-pip install playingcards.py
+pip install playingcards1598
 
 ```
--->
 
 ## How To Use
 
