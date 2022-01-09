@@ -6,7 +6,7 @@ STANDARD_SUITS = ['s', 'h', 'c', 'd']
 STANDARD_SUITS_PRETTY = ['♠', '♥', '♣', '♦']
 
 
-@dataclass
+@dataclass(order=True)
 class Rank:
     value: str
     num_value: int = None
@@ -15,7 +15,7 @@ class Rank:
         return self.value
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Suit:
     """
     A class for custom suits
@@ -29,7 +29,7 @@ class Suit:
         return self.pretty if self.pretty is not None else self.value
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Card:
     rank: Rank
     suit: Suit
