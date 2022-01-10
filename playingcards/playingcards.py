@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 import random
+from utils import concat_by_line
 
 STANDARD_RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
 STANDARD_SUITS = ['s', 'h', 'c', 'd']
@@ -50,6 +51,12 @@ class Card:
         suit = string[1]
         return Card(Rank(rank), Suit(suit, _FRENCH_SUIT_MAPPER[suit] if french_deck else None))
 
+    def ascii(self) -> str:
+        """
+        Creates an ASCII image of the playing card object.
+        """
+        return f"*- - -*\n|{self.suit}    |\n|  {self.rank}  |\n|   {self.suit} |\n*- - -*"
+
     def __eq__(self, other):
         return self.rank.value == other.rank.value and self.suit.value == other.suit.value
 
@@ -82,6 +89,9 @@ class CardCollection:
     def _check_max_cards(self):
         if self.maximum is not None and len(self.cards) > self.maximum:
             raise ValueError
+
+    def ascii(self):
+        return concat_by_line([c.ascii() for c in self.cards], sep='  ')
 
     def __str__(self):
         return ' | '.join([str(card) for card in self.cards])
@@ -143,7 +153,6 @@ class Deck(CardCollection):
     def from_ranks_suits(cls, ranks: list[Rank], suits: list[Suit]):
         return Deck([Card(r, s) for s in suits for r in ranks])
 
-
 class MaxCardsDrawn(Exception):
     pass
 
@@ -154,7 +163,7 @@ class TooManyCards(Exception):
 
 def main():
     cc = CardCollection.from_string('AsKd')
-    print(cc)
+    print(cc.ascii())
     d = Deck()
     d.remove_cards(cc)
     print(d)
@@ -162,6 +171,7 @@ def main():
     r = Rank('K', 13)
     s = Suit('h', '♥')
     c = Card(r, s)
+    print(c.ascii())
     d = Deck()
     print(str(r))
     print(str(s))
