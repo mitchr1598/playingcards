@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 import random
-from utils import concat_by_line
+from playingcards.utils import concat_by_line
 
 STANDARD_RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
 STANDARD_SUITS = ['s', 'h', 'c', 'd']
