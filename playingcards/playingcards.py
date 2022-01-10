@@ -4,9 +4,10 @@ import random
 STANDARD_RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
 STANDARD_SUITS = ['s', 'h', 'c', 'd']
 STANDARD_SUITS_PRETTY = ['♠', '♥', '♣', '♦']
+_FRENCH_SUIT_MAPPER = dict(zip(STANDARD_SUITS, STANDARD_SUITS_PRETTY))
 
 
-@dataclass(order=True)
+@dataclass(frozen=True, order=True)
 class Rank:
     value: str
     num_value: int = None
@@ -37,6 +38,21 @@ class Card:
     def __str__(self):
         return str(self.rank) + str(self.suit)
 
+    @classmethod
+    def from_string(cls, string, french_deck=True):
+        """
+        Produces a card object from a string.
+        :param string: The string of a card, eg 'As'
+        :param french_deck: bool, if true it'll automatically choose pretty suits
+        :return: A card object
+        """
+        rank = string[0]
+        suit = string[1]
+        return Card(Rank(rank), Suit(suit, _FRENCH_SUIT_MAPPER[suit] if french_deck else None))
+
+    def __eq__(self, other):
+        return self.rank.value == other.rank.value and self.suit.value == other.suit.value
+
 
 @dataclass
 class CardCollection:
@@ -58,6 +74,11 @@ class CardCollection:
             for card in cards:
                 self.cards.insert(random.randint(0, len(self.cards)), card)
 
+    def remove_cards(self, cards):  # Should add a by position option
+        for card in cards:
+            if card in self.cards:
+                self.cards.remove(card)
+
     def _check_max_cards(self):
         if self.maximum is not None and len(self.cards) > self.maximum:
             raise ValueError
@@ -67,6 +88,21 @@ class CardCollection:
 
     def __len__(self):
         return len(self.cards)
+
+    def __iter__(self):
+        return iter(self.cards)
+
+    @classmethod
+    def from_string(cls, string, french_deck=True):
+        """
+        Produces a CardCollection object from a string.
+        :param string: The string of a card collection, eg 'AsKd', or 'As Kd'
+        :param french_deck: bool, if true it'll automatically choose pretty suits
+        :return: A CardCollection object
+        """
+        string = string.replace(' ', '')
+        card_strings = [string[i:i+2] for i in range(0, len(string), 2)]
+        return CardCollection([Card.from_string(c, french_deck=french_deck) for c in card_strings])
 
 
 class Deck(CardCollection):
@@ -117,6 +153,12 @@ class TooManyCards(Exception):
 
 
 def main():
+    cc = CardCollection.from_string('AsKd')
+    print(cc)
+    d = Deck()
+    d.remove_cards(cc)
+    print(d)
+
     r = Rank('K', 13)
     s = Suit('h', '♥')
     c = Card(r, s)
