@@ -153,6 +153,7 @@ class Deck(CardCollection):
     def from_ranks_suits(cls, ranks: list[Rank], suits: list[Suit]):
         return Deck([Card(r, s) for s in suits for r in ranks])
 
+
 class MaxCardsDrawn(Exception):
     pass
 
