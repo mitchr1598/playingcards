@@ -68,9 +68,16 @@ class CardCollection:
     """
     cards: list[Card]
     maximum: int = None
+    ordered: bool = False
+    reverse_order: bool = False
 
     def __post_init__(self):
         self._check_max_cards()
+        self.order_cards()
+
+    def order_cards(self):
+        if self.ordered:
+            self.cards.sort(reverse=self.reverse_order)
 
     def add_cards(self, cards: list[Card], position=0, randomly=False):
         if not randomly:
@@ -80,6 +87,7 @@ class CardCollection:
         else:
             for card in cards:
                 self.cards.insert(random.randint(0, len(self.cards)), card)
+        self.order_cards()
 
     def remove_cards(self, cards):  # Should add a by position option
         for card in cards:
@@ -88,7 +96,7 @@ class CardCollection:
 
     def _check_max_cards(self):
         if self.maximum is not None and len(self.cards) > self.maximum:
-            raise ValueError
+            raise ValueError("To many cards in collection")
 
     def ascii(self):
         return concat_by_line([c.ascii() for c in self.cards], sep='  ')
@@ -101,6 +109,16 @@ class CardCollection:
 
     def __iter__(self):
         return iter(self.cards)
+
+    def __add__(self, other) -> list[Card]:
+        if other is None:
+            return self.cards
+        elif isinstance(other, Card):
+            return self.cards + [other]
+        elif isinstance(other, CardCollection):
+            return self.cards + other.cards
+        else:
+            raise TypeError(f"Cannot add {type(self)} to {type(other)}. CardCollections can only add to a Card or another CardCollection")
 
     @classmethod
     def from_string(cls, string, french_deck=True):
