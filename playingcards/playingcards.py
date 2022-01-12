@@ -94,12 +94,20 @@ class CardCollection:
             if card in self.cards:
                 self.cards.remove(card)
 
-    def _check_max_cards(self):
-        if self.maximum is not None and len(self.cards) > self.maximum:
-            raise ValueError("To many cards in collection")
+    @property
+    def rankings(self):
+        return [card.rank for card in self.cards]
+
+    @property
+    def suits(self):
+        return [card.suit for card in self.cards]
 
     def ascii(self):
         return concat_by_line([c.ascii() for c in self.cards], sep='  ')
+
+    def _check_max_cards(self):
+        if self.maximum is not None and len(self.cards) > self.maximum:
+            raise ValueError("To many cards in collection")
 
     def __str__(self):
         return ' | '.join([str(card) for card in self.cards])
