@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 import random
 from playingcards.utils import concat_by_line
+from typing import Union
 
 STANDARD_RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
 STANDARD_SUITS = ['s', 'h', 'c', 'd']
@@ -79,7 +80,7 @@ class CardCollection:
         if self.ordered:
             self.cards.sort(reverse=self.reverse_order)
 
-    def add_cards(self, cards: list[Card], position=0, randomly=False):
+    def add_cards(self, cards: Union[list[Card], 'CardCollection'], position=0, randomly=False):
         if not randomly:
             for card in cards:
                 self.cards.insert(position, card)
