@@ -2,7 +2,7 @@
 
 def concat_by_line(strings: list, sep=''):
     if len(strings) > 2:
-        return concat_by_line_two(strings[0], concat_by_line(strings[1:]), sep=sep)
+        return concat_by_line_two(strings[0], concat_by_line(strings[1:], sep=sep), sep=sep)
     else:
         return concat_by_line_two(strings[0], strings[1], sep=sep)
 

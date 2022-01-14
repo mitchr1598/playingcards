@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 import random
-from playingcards.utils import concat_by_line
+from utils import concat_by_line
 from typing import Union
 
 STANDARD_RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
@@ -190,7 +190,7 @@ class TooManyCards(Exception):
 
 
 def main():
-    cc = CardCollection.from_string('AsKd')
+    cc = CardCollection.from_string('AsKd6d')
     print(cc.ascii())
     d = Deck()
     d.remove_cards(cc)
