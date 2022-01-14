@@ -1,2 +1,2 @@
-from playingcards.playingcards import Rank, Suit, Card, Deck, CardCollection
+from playingcards.main import Rank, Suit, Card, Deck, CardCollection
 import playingcards.utils
