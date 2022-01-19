@@ -103,6 +103,9 @@ class CardCollection:
     def suits(self):
         return [card.suit for card in self.cards]
 
+    def to_card_collection(self):
+        return CardCollection(self.cards, maximum=self.maximum, ordered=self.ordered, reverse_order=self.reverse_order)
+
     def ascii(self):
         return concat_by_line([c.ascii() for c in self.cards], sep='  ')
 
